@@ -51,18 +51,17 @@ provider:
 # Make sure to run "sbt assembly" to create a jar file
 # with all your dependencies and put that jar file name here.
 package:
-  artifact: target/scala-2.13/hello.jar
+  artifact: target/scala-2.13/lambda.jar
 
 functions:
   hello:
-    handler: hello.ApiGatewayHandler
+    handler: lambda.Application$Handler
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
     events:
-      - http:
-          path: healtcheck
-          method: get
+      - http: ANY /
+      - http: 'ANY {proxy+}'
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
